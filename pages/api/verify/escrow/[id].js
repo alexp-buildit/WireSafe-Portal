@@ -4,7 +4,7 @@ const { sanitizeObject } = require('../../../../utils/validation');
 
 export default async function handler(req, res) {
   await requireAuth(req, res, async () => {
-    const { transactionId } = req.query;
+    const { id: transactionId } = req.query;
 
     if (req.method === 'POST') {
       return await processEscrowVerification(req, res, transactionId);

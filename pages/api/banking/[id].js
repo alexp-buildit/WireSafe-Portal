@@ -5,7 +5,7 @@ const { validateInput, bankingInfoSchema, routingNumberValidation, sanitizeObjec
 
 export default async function handler(req, res) {
   await requireAuth(req, res, async () => {
-    const { transactionId } = req.query;
+    const { id: transactionId } = req.query;
 
     if (req.method === 'POST') {
       return await submitBankingInfo(req, res, transactionId);

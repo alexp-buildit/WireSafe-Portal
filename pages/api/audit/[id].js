@@ -3,7 +3,7 @@ const { requireAuth, createAuditLog, getClientIP } = require('../../../utils/aut
 
 export default async function handler(req, res) {
   await requireAuth(req, res, async () => {
-    const { transactionId } = req.query;
+    const { id: transactionId } = req.query;
 
     if (req.method === 'GET') {
       return await getAuditLog(req, res, transactionId);
