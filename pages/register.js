@@ -66,7 +66,14 @@ export default function Register({ login, user }) {
       if (response.ok) {
         login(data.user)
       } else {
-        setError(data.message || 'Registration failed')
+        console.log('Registration error response:', data)
+        let errorMessage = data.message || 'Registration failed'
+
+        if (data.details && data.details.length > 0) {
+          errorMessage = data.details.map(detail => detail.message).join(', ')
+        }
+
+        setError(errorMessage)
       }
     } catch (error) {
       setError('Network error. Please try again.')

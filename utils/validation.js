@@ -1,13 +1,13 @@
 const Joi = require('joi');
 
 const userRegistrationSchema = Joi.object({
-  username: Joi.string().alphanum().min(3).max(50).required(),
+  username: Joi.string().pattern(/^[a-zA-Z0-9_-]+$/).min(3).max(50).required(),
   email: Joi.string().email().required(),
   firstName: Joi.string().min(1).max(100).required(),
   lastName: Joi.string().min(1).max(100).required(),
-  phoneNumber: Joi.string().pattern(/^\+?[\d\s\-\(\)]+$/).min(10).max(20).required(),
+  phoneNumber: Joi.string().pattern(/^[\d\s\-\(\)\+\.]+$/).min(10).max(25).required(),
   companyName: Joi.string().max(255).allow('', null),
-  password: Joi.string().min(8).pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/).required(),
+  password: Joi.string().min(8).required(),
   roles: Joi.array().items(Joi.string().valid('buyer', 'seller', 'lender', 'main_escrow', 'secondary_escrow')).min(1).required()
 });
 

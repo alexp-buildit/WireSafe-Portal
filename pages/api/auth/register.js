@@ -10,11 +10,15 @@ export default async function handler(req, res) {
 
   try {
     const sanitizedData = sanitizeObject(req.body);
+    console.log('Registration attempt with data:', { ...sanitizedData, password: '[HIDDEN]' });
+
     const validation = validateInput(userRegistrationSchema, sanitizedData);
 
     if (!validation.isValid) {
+      console.log('Validation errors:', validation.errors);
       return res.status(400).json({
         error: 'Validation failed',
+        message: 'Please check your input and try again',
         details: validation.errors
       });
     }
