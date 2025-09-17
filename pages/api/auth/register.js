@@ -9,8 +9,10 @@ export default async function handler(req, res) {
   }
 
   try {
+    console.log('Raw request body:', { ...req.body, password: '[HIDDEN]' });
     const sanitizedData = sanitizeObject(req.body);
-    console.log('Registration attempt with data:', { ...sanitizedData, password: '[HIDDEN]' });
+    console.log('Sanitized data:', { ...sanitizedData, password: '[HIDDEN]' });
+    console.log('Roles type:', typeof sanitizedData.roles, 'Roles value:', sanitizedData.roles);
 
     const validation = validateInput(userRegistrationSchema, sanitizedData);
 

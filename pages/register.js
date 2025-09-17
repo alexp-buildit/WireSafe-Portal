@@ -52,6 +52,8 @@ export default function Register({ login, user }) {
       const submitData = { ...formData }
       delete submitData.confirmPassword
 
+      console.log('Submitting registration data:', { ...submitData, password: '[HIDDEN]' });
+
       const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {
@@ -252,7 +254,7 @@ export default function Register({ login, user }) {
                 onChange={handleChange}
               />
               <p className="mt-1 text-xs text-gray-500">
-                Must contain at least 8 characters with uppercase, lowercase, number, and special character
+                Must contain at least 12 characters with uppercase, lowercase, number, and special character (@$!%*?&)
               </p>
             </div>
 
