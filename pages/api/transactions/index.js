@@ -100,7 +100,7 @@ async function createTransaction(req, res) {
     const { propertyAddress, purchaseAmount, secondaryEscrowUsername } = validation.data;
 
     const secondaryEscrowResult = await query(
-      'SELECT id, roles FROM users WHERE username = $1 AND is_active = true',
+      'SELECT id, roles FROM users WHERE LOWER(username) = LOWER($1) AND is_active = true',
       [secondaryEscrowUsername]
     );
 

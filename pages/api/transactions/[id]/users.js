@@ -57,7 +57,7 @@ async function addUserToTransaction(req, res, transactionId) {
     }
 
     const userResult = await query(
-      'SELECT id, username, first_name, last_name, email, roles FROM users WHERE username = $1 AND is_active = true',
+      'SELECT id, username, first_name, last_name, email, roles FROM users WHERE LOWER(username) = LOWER($1) AND is_active = true',
       [username]
     );
 

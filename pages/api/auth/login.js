@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     const { username, password } = validation.data;
 
     const result = await query(
-      'SELECT id, username, email, first_name, last_name, phone_number, company_name, password_hash, roles, is_active FROM users WHERE username = $1',
+      'SELECT id, username, email, first_name, last_name, phone_number, company_name, password_hash, roles, is_active FROM users WHERE LOWER(username) = LOWER($1)',
       [username]
     );
 

@@ -39,7 +39,7 @@ export default async function handler(req, res) {
     } = validation.data;
 
     const existingUserResult = await query(
-      'SELECT id FROM users WHERE username = $1 OR email = $2',
+      'SELECT id FROM users WHERE LOWER(username) = LOWER($1) OR LOWER(email) = LOWER($2)',
       [username, email]
     );
 
