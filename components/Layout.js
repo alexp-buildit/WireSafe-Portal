@@ -110,15 +110,15 @@ function SidebarContent({ navigation, router, user, logout }) {
   return (
     <div className="flex flex-col h-full bg-white shadow-lg">
       {/* Logo section */}
-      <div className="flex items-center px-6 py-8">
+      <div className="flex items-center px-4 py-6">
         <div className="flex items-center">
-          <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
           </div>
           <div className="ml-3">
-            <h1 className="text-xl font-bold text-gray-800">WireSafe</h1>
+            <h1 className="text-lg font-semibold text-gray-900">WireSafe</h1>
             <p className="text-xs text-gray-500">Portal</p>
           </div>
         </div>
@@ -135,9 +135,9 @@ function SidebarContent({ navigation, router, user, logout }) {
                 href={item.href}
                 className={`${
                   isActive
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg'
-                    : 'text-gray-600 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:text-gray-800'
-                } group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 transform hover:scale-105`}
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-700 hover:bg-gray-100'
+                } group flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200`}
               >
                 <span className="mr-3">{item.icon}</span>
                 {item.name}
@@ -150,27 +150,27 @@ function SidebarContent({ navigation, router, user, logout }) {
       {/* User profile section */}
       <div className="border-t border-gray-200 p-4">
         <div className="flex items-center">
-          <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+          <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
             <span className="text-white text-sm font-medium">{user?.firstName?.[0]}{user?.lastName?.[0]}</span>
           </div>
           <div className="ml-3 flex-1">
-            <div className="text-sm font-medium text-gray-700">
+            <div className="text-sm font-medium text-gray-900">
               {user?.firstName} {user?.lastName}
             </div>
-            <div className="text-xs text-gray-500">{user?.username?.toLowerCase()}</div>
+            <div className="text-xs text-gray-500">{user?.username}</div>
           </div>
           <button
             onClick={logout}
-            className="ml-2 p-2 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+            className="ml-2 p-1 rounded text-gray-400 hover:text-red-600 transition-colors"
             title="Logout"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
             </svg>
           </button>
         </div>
-        <div className="mt-2 text-xs text-gray-400 bg-gray-50 rounded-lg p-2">
-          Roles: {user?.roles?.map(role => role.replace('_', ' ')).join(', ')}
+        <div className="mt-2 text-xs text-gray-500">
+          {user?.roles?.map(role => role.replace('_', ' ')).join(', ')}
         </div>
       </div>
     </div>
