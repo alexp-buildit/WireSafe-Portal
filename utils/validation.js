@@ -76,6 +76,11 @@ function sanitizeObject(obj) {
   for (const [key, value] of Object.entries(obj)) {
     if (typeof value === 'string') {
       sanitized[key] = sanitizeString(value);
+    } else if (Array.isArray(value)) {
+      // Handle arrays specially - just sanitize each string element
+      sanitized[key] = value.map(item =>
+        typeof item === 'string' ? sanitizeString(item) : item
+      );
     } else if (typeof value === 'object' && value !== null) {
       sanitized[key] = sanitizeObject(value);
     } else {

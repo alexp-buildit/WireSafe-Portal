@@ -10,9 +10,11 @@ export default async function handler(req, res) {
 
   try {
     console.log('Raw request body:', { ...req.body, password: '[HIDDEN]' });
+    console.log('Raw roles:', req.body.roles, 'Type:', typeof req.body.roles, 'Is Array:', Array.isArray(req.body.roles));
+
     const sanitizedData = sanitizeObject(req.body);
     console.log('Sanitized data:', { ...sanitizedData, password: '[HIDDEN]' });
-    console.log('Roles type:', typeof sanitizedData.roles, 'Roles value:', sanitizedData.roles);
+    console.log('Sanitized roles:', sanitizedData.roles, 'Type:', typeof sanitizedData.roles, 'Is Array:', Array.isArray(sanitizedData.roles));
 
     const validation = validateInput(userRegistrationSchema, sanitizedData);
 
