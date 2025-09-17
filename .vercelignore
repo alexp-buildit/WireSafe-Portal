@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+
+# Development files
+.env.local
+.env.development.local
+.env.test.local
+
+# Build outputs
+.next/
+out/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage
+coverage/
+
+# Testing
+.nyc_output
+
+# Cache
+.cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Development scripts
+scripts/dev-*
+scripts/test-*
+
+# Documentation (if you don't want to deploy docs)
+docs/
+*.md
+!README.md
+
+# Temporary files
+tmp/
+temp/
