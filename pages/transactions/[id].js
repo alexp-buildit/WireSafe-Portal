@@ -97,8 +97,8 @@ export default function TransactionDetail({ user, logout }) {
       <Layout user={user} logout={logout}>
         <div className="max-w-2xl mx-auto">
           <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 text-center">
-            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
               </svg>
             </div>
@@ -136,7 +136,7 @@ export default function TransactionDetail({ user, logout }) {
                   href="/transactions"
                   className="mr-4 p-2 rounded-lg bg-white/20 hover:bg-white/30 transition-colors duration-200"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                   </svg>
                 </Link>
@@ -164,8 +164,8 @@ export default function TransactionDetail({ user, logout }) {
             {/* Transaction Overview */}
             <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
               <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                 </div>
@@ -177,7 +177,7 @@ export default function TransactionDetail({ user, logout }) {
                   <label className="block text-sm font-bold text-gray-600 mb-2">Property Address</label>
                   <div className="bg-gray-50 p-4 rounded-xl border-2 border-gray-200">
                     <div className="flex items-start">
-                      <svg className="w-5 h-5 mr-3 mt-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 mr-3 mt-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
@@ -190,7 +190,7 @@ export default function TransactionDetail({ user, logout }) {
                   <label className="block text-sm font-bold text-gray-600 mb-2">Purchase Amount</label>
                   <div className="bg-gray-50 p-4 rounded-xl border-2 border-gray-200">
                     <div className="flex items-center">
-                      <svg className="w-5 h-5 mr-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 mr-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
                       </svg>
                       <p className="text-2xl font-bold text-green-600">${transaction.purchaseAmount?.toLocaleString()}</p>
@@ -204,7 +204,7 @@ export default function TransactionDetail({ user, logout }) {
                   <label className="block text-sm font-bold text-gray-600 mb-2">Main Escrow Officer</label>
                   <div className="bg-blue-50 p-4 rounded-xl border-2 border-blue-200">
                     <div className="flex items-center">
-                      <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-3">
+                      <div className="w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-3">
                         <span className="text-white text-sm font-bold">
                           {transaction.mainEscrow.firstName?.[0]}{transaction.mainEscrow.lastName?.[0]}
                         </span>
@@ -221,7 +221,7 @@ export default function TransactionDetail({ user, logout }) {
                   <label className="block text-sm font-bold text-gray-600 mb-2">Secondary Escrow Officer</label>
                   <div className="bg-purple-50 p-4 rounded-xl border-2 border-purple-200">
                     <div className="flex items-center">
-                      <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-3">
+                      <div className="w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-3">
                         <span className="text-white text-sm font-bold">
                           {transaction.secondaryEscrow.firstName?.[0]}{transaction.secondaryEscrow.lastName?.[0]}
                         </span>
@@ -240,8 +240,8 @@ export default function TransactionDetail({ user, logout }) {
             {participants.length > 0 && (
               <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                  <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mr-3">
-                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-4 h-4 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mr-3">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                   </div>
@@ -252,7 +252,7 @@ export default function TransactionDetail({ user, logout }) {
                     <div key={index} className="bg-gray-50 p-6 rounded-xl border-2 border-gray-200">
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center">
-                          <div className="w-10 h-10 bg-gradient-to-r from-gray-500 to-gray-600 rounded-full flex items-center justify-center mr-3">
+                          <div className="w-4 h-4 bg-gradient-to-r from-gray-500 to-gray-600 rounded-full flex items-center justify-center mr-3">
                             <span className="text-white text-sm font-bold">
                               {participant.firstName?.[0]}{participant.lastName?.[0]}
                             </span>
@@ -288,7 +288,7 @@ export default function TransactionDetail({ user, logout }) {
             {/* Quick Actions */}
             <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
               <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
-                <div className="w-6 h-6 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center mr-2">
+                <div className="w-4 h-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center mr-2">
                   <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
@@ -311,7 +311,7 @@ export default function TransactionDetail({ user, logout }) {
             {/* Transaction Timeline */}
             <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
               <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
-                <div className="w-6 h-6 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center mr-2">
+                <div className="w-4 h-4 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center mr-2">
                   <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
