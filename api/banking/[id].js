@@ -3,7 +3,7 @@ const { requireAuth, createAuditLog, getClientIP } = require('../../../utils/aut
 const { encrypt, decrypt } = require('../../../utils/encryption');
 const { validateInput, bankingInfoSchema, routingNumberValidation, sanitizeObject } = require('../../../utils/validation');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   await requireAuth(req, res, async () => {
     const { id: transactionId } = req.query;
 

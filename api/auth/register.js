@@ -3,7 +3,7 @@ const { hashPassword } = require('../../../utils/encryption');
 const { generateToken, createAuditLog, getClientIP } = require('../../../utils/auth');
 const { validateInput, userRegistrationSchema, sanitizeObject } = require('../../../utils/validation');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }

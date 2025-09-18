@@ -2,7 +2,7 @@ const { query } = require('../../../lib/db');
 const { requireAuth, requireRole, createAuditLog, getClientIP } = require('../../../utils/auth');
 const { validateInput, transactionCreateSchema, sanitizeObject } = require('../../../utils/validation');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   await requireAuth(req, res, async () => {
     if (req.method === 'GET') {
       return await getTransactions(req, res);

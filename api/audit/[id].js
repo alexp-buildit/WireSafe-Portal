@@ -1,7 +1,7 @@
 const { query } = require('../../../lib/db');
 const { requireAuth, createAuditLog, getClientIP } = require('../../../utils/auth');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   await requireAuth(req, res, async () => {
     const { id: transactionId } = req.query;
 
