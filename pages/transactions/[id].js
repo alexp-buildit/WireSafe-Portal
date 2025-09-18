@@ -197,7 +197,7 @@ export default function TransactionDetail({ user, logout }) {
             {/* Transaction Overview */}
             <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
               <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                <div className="w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+                <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
                   <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
@@ -273,39 +273,45 @@ export default function TransactionDetail({ user, logout }) {
             {participants.length > 0 && (
               <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                  <div className="w-4 h-4 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mr-3">
+                  <div className="w-6 h-6 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mr-3">
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                   </div>
                   Transaction Participants
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-6">
                   {participants.map((participant, index) => (
                     <div key={index} className="bg-gray-50 p-6 rounded-xl border-2 border-gray-200">
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 bg-gradient-to-r from-gray-500 to-gray-600 rounded-full flex items-center justify-center mr-3">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-center flex-1">
+                          <div className="w-12 h-12 bg-gradient-to-r from-gray-500 to-gray-600 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
                             <span className="text-white text-sm font-bold">
                               {participant.firstName?.[0]}{participant.lastName?.[0]}
                             </span>
                           </div>
-                          <div>
-                            <p className="font-bold text-gray-800">{participant.firstName} {participant.lastName}</p>
-                            <p className="text-sm text-gray-600">@{participant.username}</p>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between mb-2">
+                              <h4 className="font-bold text-gray-800 text-lg">{participant.firstName} {participant.lastName}</h4>
+                              <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full flex-shrink-0">
+                                {getRoleDisplay(participant.role)}
+                              </span>
+                            </div>
+                            <p className="text-sm text-gray-600 mb-3">@{participant.username}</p>
                           </div>
                         </div>
-                        <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded-full">
-                          {getRoleDisplay(participant.role)}
-                        </span>
                       </div>
-                      <div className="text-sm text-gray-600 space-y-1">
-                        <p><span className="font-medium">Email:</span> {participant.email}</p>
-                        <p><span className="font-medium">Phone:</span> {participant.phoneNumber}</p>
-                        {participant.companyName && (
-                          <p><span className="font-medium">Company:</span> {participant.companyName}</p>
-                        )}
-                        <p><span className="font-medium">Added:</span> {new Date(participant.addedAt).toLocaleDateString()}</p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
+                        <div className="space-y-2">
+                          <p><span className="font-medium text-gray-700">Email:</span><br/>{participant.email}</p>
+                          <p><span className="font-medium text-gray-700">Phone:</span><br/>{participant.phoneNumber}</p>
+                        </div>
+                        <div className="space-y-2">
+                          {participant.companyName && (
+                            <p><span className="font-medium text-gray-700">Company:</span><br/>{participant.companyName}</p>
+                          )}
+                          <p><span className="font-medium text-gray-700">Added:</span><br/>{new Date(participant.addedAt).toLocaleDateString()}</p>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -321,7 +327,7 @@ export default function TransactionDetail({ user, logout }) {
             {/* Quick Actions */}
             <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
               <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
-                <div className="w-4 h-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center mr-2">
+                <div className="w-6 h-6 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center mr-2">
                   <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
@@ -347,7 +353,7 @@ export default function TransactionDetail({ user, logout }) {
             {/* Transaction Timeline */}
             <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
               <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
-                <div className="w-4 h-4 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center mr-2">
+                <div className="w-6 h-6 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center mr-2">
                   <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -379,8 +385,8 @@ export default function TransactionDetail({ user, logout }) {
 
         {/* Add Participant Modal */}
         {showAddParticipantModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-2xl p-8 shadow-xl max-w-md w-full mx-4">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-2xl p-8 shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-xl font-bold text-gray-800">Add Participant</h3>
                 <button
