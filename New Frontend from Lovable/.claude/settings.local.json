@@ -4,7 +4,14 @@
       "Bash(npm run dev:*)",
       "Read(//c/Users/alexp/WireSafe-Portal/**)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git checkout:*)",
+      "Bash(rm:*)",
+      "Bash(cp:*)",
+      "Bash(mkdir:*)",
+      "Bash(npm install)",
+      "Bash(npm run build:*)",
+      "Bash(timeout 5 npm run dev)"
     ],
     "deny": [],
     "ask": []
