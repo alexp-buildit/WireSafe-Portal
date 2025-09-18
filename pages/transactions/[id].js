@@ -12,6 +12,15 @@ export default function TransactionDetail({ user, logout }) {
   const [verificationActions, setVerificationActions] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [showAddParticipantModal, setShowAddParticipantModal] = useState(false)
+  const [newParticipant, setNewParticipant] = useState({
+    email: '',
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    companyName: '',
+    role: 'buyer'
+  })
 
   useEffect(() => {
     if (id) {
@@ -75,6 +84,38 @@ export default function TransactionDetail({ user, logout }) {
       'lender': 'Lender'
     }
     return roleMap[role] || role
+  }
+
+  const handleAddParticipant = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await fetch(`/api/transactions/${id}/participants`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(newParticipant)
+      })
+
+      if (response.ok) {
+        setShowAddParticipantModal(false)
+        setNewParticipant({
+          email: '',
+          firstName: '',
+          lastName: '',
+          phoneNumber: '',
+          companyName: '',
+          role: 'buyer'
+        })
+        fetchTransactionDetails()
+      } else {
+        const errorData = await response.json()
+        setError(errorData.message || 'Failed to add participant')
+      }
+    } catch (error) {
+      setError('Network error. Please try again.')
+    }
   }
 
   if (!user) {
@@ -204,7 +245,7 @@ export default function TransactionDetail({ user, logout }) {
                   <label className="block text-sm font-bold text-gray-600 mb-2">Main Escrow Officer</label>
                   <div className="bg-blue-50 p-4 rounded-xl border-2 border-blue-200">
                     <div className="flex items-center">
-                      <div className="w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-3">
+                      <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-3">
                         <span className="text-white text-sm font-bold">
                           {transaction.mainEscrow.firstName?.[0]}{transaction.mainEscrow.lastName?.[0]}
                         </span>
@@ -221,7 +262,7 @@ export default function TransactionDetail({ user, logout }) {
                   <label className="block text-sm font-bold text-gray-600 mb-2">Secondary Escrow Officer</label>
                   <div className="bg-purple-50 p-4 rounded-xl border-2 border-purple-200">
                     <div className="flex items-center">
-                      <div className="w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-3">
+                      <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mr-3">
                         <span className="text-white text-sm font-bold">
                           {transaction.secondaryEscrow.firstName?.[0]}{transaction.secondaryEscrow.lastName?.[0]}
                         </span>
@@ -252,7 +293,7 @@ export default function TransactionDetail({ user, logout }) {
                     <div key={index} className="bg-gray-50 p-6 rounded-xl border-2 border-gray-200">
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center">
-                          <div className="w-4 h-4 bg-gradient-to-r from-gray-500 to-gray-600 rounded-full flex items-center justify-center mr-3">
+                          <div className="w-10 h-10 bg-gradient-to-r from-gray-500 to-gray-600 rounded-full flex items-center justify-center mr-3">
                             <span className="text-white text-sm font-bold">
                               {participant.firstName?.[0]}{participant.lastName?.[0]}
                             </span>
@@ -296,7 +337,10 @@ export default function TransactionDetail({ user, logout }) {
                 Quick Actions
               </h3>
               <div className="space-y-3">
-                <button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium py-2 px-4 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 text-sm">
+                <button
+                  onClick={() => setShowAddParticipantModal(true)}
+                  className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium py-2 px-4 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 text-sm"
+                >
                   Add Participants
                 </button>
                 <button className="w-full bg-white border-2 border-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg hover:border-gray-300 transition-colors duration-200 text-sm">
@@ -340,6 +384,111 @@ export default function TransactionDetail({ user, logout }) {
 
           </div>
         </div>
+
+        {/* Add Participant Modal */}
+        {showAddParticipantModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-2xl p-8 shadow-xl max-w-md w-full mx-4">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-bold text-gray-800">Add Participant</h3>
+                <button
+                  onClick={() => setShowAddParticipantModal(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              <form onSubmit={handleAddParticipant} className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                    <input
+                      type="text"
+                      required
+                      value={newParticipant.firstName}
+                      onChange={(e) => setNewParticipant({...newParticipant, firstName: e.target.value})}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                    <input
+                      type="text"
+                      required
+                      value={newParticipant.lastName}
+                      onChange={(e) => setNewParticipant({...newParticipant, lastName: e.target.value})}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <input
+                    type="email"
+                    required
+                    value={newParticipant.email}
+                    onChange={(e) => setNewParticipant({...newParticipant, email: e.target.value})}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                  <input
+                    type="tel"
+                    required
+                    value={newParticipant.phoneNumber}
+                    onChange={(e) => setNewParticipant({...newParticipant, phoneNumber: e.target.value})}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Company Name (Optional)</label>
+                  <input
+                    type="text"
+                    value={newParticipant.companyName}
+                    onChange={(e) => setNewParticipant({...newParticipant, companyName: e.target.value})}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Role</label>
+                  <select
+                    value={newParticipant.role}
+                    onChange={(e) => setNewParticipant({...newParticipant, role: e.target.value})}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    <option value="buyer">Buyer</option>
+                    <option value="seller">Seller</option>
+                    <option value="lender">Lender</option>
+                  </select>
+                </div>
+
+                <div className="flex space-x-3 pt-4">
+                  <button
+                    type="button"
+                    onClick={() => setShowAddParticipantModal(false)}
+                    className="flex-1 bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors duration-200"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium py-2 px-4 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200"
+                  >
+                    Add Participant
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     </Layout>
   )
