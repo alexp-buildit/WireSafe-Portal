@@ -14,11 +14,7 @@ export default function TransactionDetail({ user, logout }) {
   const [error, setError] = useState('')
   const [showAddParticipantModal, setShowAddParticipantModal] = useState(false)
   const [newParticipant, setNewParticipant] = useState({
-    email: '',
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-    companyName: '',
+    username: '',
     role: 'buyer'
   })
 
@@ -89,8 +85,8 @@ export default function TransactionDetail({ user, logout }) {
   const handleAddParticipant = async (e) => {
     e.preventDefault()
     try {
-      const response = await fetch(`/api/transactions/${id}/participants`, {
-        method: 'POST',
+      const response = await fetch(`/api/transactions/${id}/users`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -101,11 +97,7 @@ export default function TransactionDetail({ user, logout }) {
       if (response.ok) {
         setShowAddParticipantModal(false)
         setNewParticipant({
-          email: '',
-          firstName: '',
-          lastName: '',
-          phoneNumber: '',
-          companyName: '',
+          username: '',
           role: 'buyer'
         })
         fetchTransactionDetails()
@@ -402,59 +394,17 @@ export default function TransactionDetail({ user, logout }) {
               </div>
 
               <form onSubmit={handleAddParticipant} className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                    <input
-                      type="text"
-                      required
-                      value={newParticipant.firstName}
-                      onChange={(e) => setNewParticipant({...newParticipant, firstName: e.target.value})}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                    <input
-                      type="text"
-                      required
-                      value={newParticipant.lastName}
-                      onChange={(e) => setNewParticipant({...newParticipant, lastName: e.target.value})}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-                </div>
-
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                  <input
-                    type="email"
-                    required
-                    value={newParticipant.email}
-                    onChange={(e) => setNewParticipant({...newParticipant, email: e.target.value})}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                  <input
-                    type="tel"
-                    required
-                    value={newParticipant.phoneNumber}
-                    onChange={(e) => setNewParticipant({...newParticipant, phoneNumber: e.target.value})}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Company Name (Optional)</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
                   <input
                     type="text"
-                    value={newParticipant.companyName}
-                    onChange={(e) => setNewParticipant({...newParticipant, companyName: e.target.value})}
+                    required
+                    value={newParticipant.username}
+                    onChange={(e) => setNewParticipant({...newParticipant, username: e.target.value})}
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Enter existing user's username"
                   />
+                  <p className="text-sm text-gray-500 mt-1">The user must already be registered in the system</p>
                 </div>
 
                 <div>

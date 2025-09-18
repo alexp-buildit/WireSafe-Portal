@@ -63,16 +63,16 @@ async function getTransactionDetails(req, res, transactionId) {
     const participantsResult = await query(`
       SELECT
         tp.role,
-        tp.added_at,
-        COALESCE(u.id, 0) as id,
-        COALESCE(u.username, '') as username,
-        COALESCE(u.first_name, tp.first_name) as first_name,
-        COALESCE(u.last_name, tp.last_name) as last_name,
-        COALESCE(u.email, tp.email) as email,
-        COALESCE(u.phone_number, tp.phone_number) as phone_number,
-        COALESCE(u.company_name, tp.company_name) as company_name
+        u.id,
+        u.username,
+        u.first_name,
+        u.last_name,
+        u.email,
+        u.phone_number,
+        u.company_name,
+        tp.added_at
       FROM transaction_participants tp
-      LEFT JOIN users u ON tp.user_id = u.id
+      JOIN users u ON tp.user_id = u.id
       WHERE tp.transaction_id = $1
       ORDER BY tp.added_at
     `, [transactionId]);
