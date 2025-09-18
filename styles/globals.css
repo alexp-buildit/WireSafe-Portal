@@ -2,151 +2,128 @@
 @tailwind components;
 @tailwind utilities;
 
-/* EMERGENCY CSS RESET - Force everything to normal size */
-* {
-  box-sizing: border-box;
-}
+/* WireSafe Portal Design System - Professional Security Theme
+All colors MUST be HSL.
+*/
 
-/* Force all SVG elements to be small */
-svg {
-  width: 1rem !important;
-  height: 1rem !important;
-  max-width: 1rem !important;
-  max-height: 1rem !important;
-  display: inline-block !important;
-  overflow: hidden !important;
-}
+@layer base {
+  :root {
+    /* Base colors */
+    --background: 0 0% 99%;
+    --foreground: 220 13% 18%;
 
-/* Override specific size classes */
-.w-4, .w-4 svg {
-  width: 1rem !important;
-  max-width: 1rem !important;
-}
+    /* Card and surface colors */
+    --card: 0 0% 100%;
+    --card-foreground: 220 13% 18%;
 
-.h-4, .h-4 svg {
-  height: 1rem !important;
-  max-height: 1rem !important;
-}
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 13% 18%;
 
-.w-5, .w-5 svg {
-  width: 1.25rem !important;
-  max-width: 1.25rem !important;
-}
+    /* WireSafe brand colors */
+    --primary: 217 91% 60%; /* #2563eb - WireSafe Blue */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 217 91% 55%;
 
-.h-5, .h-5 svg {
-  height: 1.25rem !important;
-  max-height: 1.25rem !important;
-}
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 13% 18%;
 
-.w-6, .w-6 svg {
-  width: 1.5rem !important;
-  max-width: 1.5rem !important;
-}
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
 
-.h-6, .h-6 svg {
-  height: 1.5rem !important;
-  max-height: 1.5rem !important;
-}
+    --accent: 220 14% 96%;
+    --accent-foreground: 220 13% 18%;
 
-.w-8, .w-8 svg {
-  width: 2rem !important;
-  max-width: 2rem !important;
-}
+    /* Status colors for transaction states */
+    --status-setup: 217 91% 60%; /* Blue - Setup */
+    --status-banking: 33 100% 47%; /* Yellow - Banking Info */
+    --status-buyer-verification: 259 94% 51%; /* Purple - Buyer Verification */
+    --status-seller-verification: 20 91% 48%; /* Orange - Seller Verification */
+    --status-completed: 158 64% 52%; /* Green - Completed */
+    --status-flagged: 0 84% 60%; /* Red - Flagged */
 
-.h-8, .h-8 svg {
-  height: 2rem !important;
-  max-height: 2rem !important;
-}
+    /* Semantic colors */
+    --success: 158 64% 52%; /* #059669 */
+    --success-foreground: 0 0% 100%;
 
-.w-12, .w-12 svg {
-  width: 3rem !important;
-  max-width: 3rem !important;
-}
+    --warning: 33 100% 47%; /* #d97706 */
+    --warning-foreground: 0 0% 100%;
 
-.h-12, .h-12 svg {
-  height: 3rem !important;
-  max-height: 3rem !important;
-}
+    --destructive: 0 84% 60%; /* #dc2626 */
+    --destructive-foreground: 0 0% 100%;
 
-/* Force containers to be reasonable sizes */
-nav, button, .sidebar, header {
-  overflow: hidden !important;
-}
+    /* UI elements */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 217 91% 60%;
 
-/* Emergency override for any element that's too big */
-body * {
-  max-width: 100vw !important;
-  max-height: 100vh !important;
+    --radius: 0.5rem;
+
+    /* Gradients for enhanced visual appeal */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-hover)));
+    --gradient-success: linear-gradient(135deg, hsl(var(--success)), hsl(158 64% 45%));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(259 94% 51%));
+
+    /* Shadow definitions */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+
+  .dark {
+    --background: 220 13% 9%;
+    --foreground: 0 0% 95%;
+
+    --card: 220 13% 11%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 220 13% 11%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 217 91% 55%;
+
+    --secondary: 220 13% 15%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 220 13% 15%;
+    --muted-foreground: 220 9% 65%;
+
+    --accent: 220 13% 15%;
+    --accent-foreground: 0 0% 95%;
+
+    --success: 158 64% 52%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 33 100% 47%;
+    --warning-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 18%;
+    --input: 220 13% 18%;
+    --ring: 217 91% 60%;
+  }
 }
 
 @layer base {
-  html {
-    font-family: system-ui, sans-serif;
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 }
 
 @layer components {
-  .btn {
-    @apply px-4 py-2 rounded-md font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
-  }
-
-  .btn-primary {
-    @apply btn bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
-  }
-
-  .btn-secondary {
-    @apply btn bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500;
-  }
-
-  .btn-success {
-    @apply btn bg-green-600 text-white hover:bg-green-700 focus:ring-green-500;
-  }
-
-  .btn-warning {
-    @apply btn bg-yellow-600 text-white hover:bg-yellow-700 focus:ring-yellow-500;
-  }
-
-  .btn-danger {
-    @apply btn bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
-  }
-
   .form-input {
-    @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500;
+    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
   }
 
   .form-label {
-    @apply block text-sm font-medium text-gray-700 mb-1;
-  }
-
-  .card {
-    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6;
-  }
-
-  .status-badge {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
-  }
-
-  .status-setup {
-    @apply status-badge bg-gray-100 text-gray-800;
-  }
-
-  .status-banking-info {
-    @apply status-badge bg-blue-100 text-blue-800;
-  }
-
-  .status-buyer-verification {
-    @apply status-badge bg-yellow-100 text-yellow-800;
-  }
-
-  .status-seller-verification {
-    @apply status-badge bg-purple-100 text-purple-800;
-  }
-
-  .status-completed {
-    @apply status-badge bg-green-100 text-green-800;
-  }
-
-  .status-flagged {
-    @apply status-badge bg-red-100 text-red-800;
+    @apply text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70;
   }
 }

@@ -1,6 +1,19 @@
 import { useState, useEffect } from 'react'
 import Layout from '../components/Layout'
 import Link from 'next/link'
+import {
+  FileText,
+  Clock,
+  CheckCircle,
+  AlertTriangle,
+  Plus,
+  ArrowRight,
+  TrendingUp,
+  DollarSign
+} from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
+import { Button } from '../components/ui/button'
+import { Badge } from '../components/ui/badge'
 
 export default function Dashboard({ user, logout }) {
   const [transactions, setTransactions] = useState([])
@@ -74,15 +87,15 @@ export default function Dashboard({ user, logout }) {
   }
 
   const getStatusClass = (status) => {
-    const statusClasses = {
-      'setup': 'bg-blue-100 text-blue-800',
-      'banking_info': 'bg-yellow-100 text-yellow-800',
-      'buyer_verification': 'bg-purple-100 text-purple-800',
-      'seller_verification': 'bg-orange-100 text-orange-800',
-      'completed': 'bg-green-100 text-green-800',
-      'flagged': 'bg-red-100 text-red-800'
+    const statusVariants = {
+      'setup': 'default',
+      'banking_info': 'secondary',
+      'buyer_verification': 'outline',
+      'seller_verification': 'secondary',
+      'completed': 'default',
+      'flagged': 'destructive'
     }
-    return statusClasses[status] || 'bg-blue-100 text-blue-800'
+    return statusVariants[status] || 'default'
   }
 
   const getActionItems = (transaction) => {
@@ -132,118 +145,124 @@ export default function Dashboard({ user, logout }) {
       <div className="max-w-7xl mx-auto">
         {/* Welcome Header */}
         <div className="mb-8">
-          <div className="bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 rounded-lg p-6 text-white shadow-md">
-            <h1 className="text-2xl font-semibold mb-1">
-              Welcome back, {user.firstName}
-            </h1>
-            <p className="text-slate-300 text-sm">
-              Manage your real estate wire transfer transactions securely
-            </p>
-          </div>
+          <Card className="bg-gradient-to-r from-primary to-primary-hover text-primary-foreground border-0">
+            <CardContent className="p-6">
+              <h1 className="text-3xl font-bold mb-2">
+                Welcome back, {user.firstName}!
+              </h1>
+              <p className="text-primary-foreground/80">
+                Manage your real estate wire transfer transactions securely
+              </p>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">Total Transactions</p>
-                <p className="text-2xl font-bold text-gray-900 mt-1">{stats.total}</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <Card className="hover:shadow-lg transition-shadow">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-muted-foreground text-sm font-medium">Total Transactions</p>
+                  <p className="text-3xl font-bold text-foreground mt-1">{stats.total}</p>
+                </div>
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+                  <FileText className="w-6 h-6 text-primary-foreground" />
+                </div>
               </div>
-              <div className="w-8 h-8 bg-blue-500 rounded flex items-center justify-center">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-              </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
 
-          <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">In Progress</p>
-                <p className="text-2xl font-bold text-amber-600 mt-1">
-                  {stats.setup + stats.bankingInfo + stats.buyerVerification + stats.sellerVerification}
-                </p>
+          <Card className="hover:shadow-lg transition-shadow">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-muted-foreground text-sm font-medium">In Progress</p>
+                  <p className="text-3xl font-bold text-warning mt-1">
+                    {stats.setup + stats.bankingInfo + stats.buyerVerification + stats.sellerVerification}
+                  </p>
+                </div>
+                <div className="w-12 h-12 bg-warning rounded-lg flex items-center justify-center">
+                  <Clock className="w-6 h-6 text-warning-foreground" />
+                </div>
               </div>
-              <div className="w-8 h-8 bg-amber-500 rounded flex items-center justify-center">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
 
-          <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">Completed</p>
-                <p className="text-2xl font-bold text-green-600 mt-1">{stats.completed}</p>
+          <Card className="hover:shadow-lg transition-shadow">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-muted-foreground text-sm font-medium">Completed</p>
+                  <p className="text-3xl font-bold text-success mt-1">{stats.completed}</p>
+                </div>
+                <div className="w-12 h-12 bg-success rounded-lg flex items-center justify-center">
+                  <CheckCircle className="w-6 h-6 text-success-foreground" />
+                </div>
               </div>
-              <div className="w-8 h-8 bg-green-500 rounded flex items-center justify-center">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
 
-          <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">Flagged</p>
-                <p className="text-2xl font-bold text-red-600 mt-1">{stats.flagged}</p>
+          <Card className="hover:shadow-lg transition-shadow">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-muted-foreground text-sm font-medium">Flagged</p>
+                  <p className="text-3xl font-bold text-destructive mt-1">{stats.flagged}</p>
+                </div>
+                <div className="w-12 h-12 bg-destructive rounded-lg flex items-center justify-center">
+                  <AlertTriangle className="w-6 h-6 text-destructive-foreground" />
+                </div>
               </div>
-              <div className="w-8 h-8 bg-red-500 rounded flex items-center justify-center">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01M5.07 19.937l13.856-13.855" />
-                </svg>
-              </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Quick Actions */}
         {user.roles?.includes('main_escrow') && (
-          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Link
-                href="/transactions/new"
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-md text-center transition-colors duration-200 flex items-center justify-center"
-              >
-                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-                Create New Transaction
-              </Link>
-              <Link
-                href="/transactions"
-                className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 px-4 rounded-md text-center transition-colors duration-200 flex items-center justify-center"
-              >
-                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                View All Transactions
-              </Link>
-            </div>
-          </div>
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <TrendingUp className="w-5 h-5" />
+                Quick Actions
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button asChild className="flex-1">
+                  <Link href="/transactions/new" className="flex items-center justify-center gap-2">
+                    <Plus className="w-4 h-4" />
+                    Create New Transaction
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" className="flex-1">
+                  <Link href="/transactions" className="flex items-center justify-center gap-2">
+                    <FileText className="w-4 h-4" />
+                    View All Transactions
+                  </Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         )}
 
         {/* Recent Transactions */}
-        <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Recent Transactions</h2>
-            <Link
-              href="/transactions"
-              className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center"
-            >
-              View all
-              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle className="flex items-center gap-2">
+                <FileText className="w-5 h-5" />
+                Recent Transactions
+              </CardTitle>
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/transactions" className="flex items-center gap-1">
+                  View all
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent>
 
           {loading ? (
             <div className="flex items-center justify-center py-8">
@@ -267,35 +286,36 @@ export default function Dashboard({ user, logout }) {
               )}
             </div>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-4">
               {transactions.slice(0, 5).map((transaction) => (
-                <div key={transaction.id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                <div key={transaction.id} className="border border-border rounded-lg p-4 hover:bg-muted/50 transition-colors">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-2">
                         <Link
                           href={`/transactions/${transaction.id}`}
-                          className="text-blue-600 hover:text-blue-800 font-medium hover:underline"
+                          className="text-primary hover:text-primary-hover font-medium hover:underline"
                         >
                           {transaction.transactionId}
                         </Link>
-                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getStatusClass(transaction.status)}`}>
+                        <Badge variant={getStatusClass(transaction.status)}>
                           {getStatusDisplay(transaction.status)}
-                        </span>
+                        </Badge>
                       </div>
-                      <div className="text-gray-600 text-sm mb-1">
+                      <div className="text-muted-foreground text-sm mb-1">
                         {transaction.propertyAddress}
                       </div>
-                      <div className="text-green-600 font-semibold">
-                        ${transaction.purchaseAmount?.toLocaleString()}
+                      <div className="text-success font-semibold flex items-center gap-1">
+                        <DollarSign className="w-4 h-4" />
+                        {transaction.purchaseAmount?.toLocaleString()}
                       </div>
                     </div>
-                    <div className="text-right text-sm text-gray-500">
+                    <div className="text-right text-sm text-muted-foreground">
                       <div>Your role: {transaction.userRole || 'N/A'}</div>
                       {getActionItems(transaction).length > 0 && (
-                        <div className="text-amber-600 font-medium mt-1">
+                        <Badge variant="secondary" className="mt-1">
                           Action required
-                        </div>
+                        </Badge>
                       )}
                     </div>
                   </div>
@@ -303,7 +323,8 @@ export default function Dashboard({ user, logout }) {
               ))}
             </div>
           )}
-        </div>
+          </CardContent>
+        </Card>
       </div>
     </Layout>
   )
