@@ -1,20 +1,18 @@
-import { useState } from 'react'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import { Lock, Loader2 } from 'lucide-react'
-import { Button } from '../components/ui/button'
-import { Input } from '../components/ui/input'
-import { Label } from '../components/ui/label'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card'
+import { useState } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { Lock, Loader2 } from "lucide-react";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 
 export default function Login({ login, user }) {
-  const [formData, setFormData] = useState({
-    username: '',
-    password: ''
-  })
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  const router = useRouter()
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
 
   if (user) {
     router.push('/dashboard')
@@ -22,9 +20,9 @@ export default function Login({ login, user }) {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
+    e.preventDefault();
+    setError("");
+    setIsLoading(true);
 
     try {
       const response = await fetch('/api/auth/login', {
@@ -33,7 +31,7 @@ export default function Login({ login, user }) {
           'Content-Type': 'application/json',
         },
         credentials: 'include',
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ username, password }),
       })
 
       const data = await response.json()
@@ -46,16 +44,9 @@ export default function Login({ login, user }) {
     } catch (error) {
       setError('Network error. Please try again.')
     } finally {
-      setLoading(false)
+      setIsLoading(false)
     }
-  }
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
+  };
 
   return (
     <div className="min-h-screen bg-muted/30 flex items-center justify-center p-4">
@@ -88,11 +79,10 @@ export default function Login({ login, user }) {
                 <Label htmlFor="username">Username</Label>
                 <Input
                   id="username"
-                  name="username"
                   type="text"
                   placeholder="Enter your username"
-                  value={formData.username}
-                  onChange={handleChange}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                 />
               </div>
@@ -100,11 +90,10 @@ export default function Login({ login, user }) {
                 <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
-                  name="password"
                   type="password"
                   placeholder="Enter your password"
-                  value={formData.password}
-                  onChange={handleChange}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
@@ -113,9 +102,9 @@ export default function Login({ login, user }) {
                   {error}
                 </div>
               )}
-              <Button type="submit" className="w-full" disabled={loading}>
-                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {loading ? "Signing in..." : "Sign in"}
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {isLoading ? "Signing in..." : "Sign in"}
               </Button>
             </form>
             <div className="mt-6 text-center">
@@ -133,5 +122,5 @@ export default function Login({ login, user }) {
         </Card>
       </div>
     </div>
-  )
+  );
 }
