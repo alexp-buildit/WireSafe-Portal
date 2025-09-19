@@ -134,4 +134,30 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Fix for massive emoji sizing issues */
+  * {
+    font-variant-emoji: text;
+  }
+
+  /* Ensure emojis maintain reasonable size */
+  span[role="img"],
+  .emoji,
+  [data-emoji] {
+    font-size: 1em !important;
+    display: inline-block;
+    max-width: 1.2em;
+    max-height: 1.2em;
+    vertical-align: text-bottom;
+  }
+
+  /* Global emoji constraint */
+  body * {
+    font-size: inherit;
+  }
+
+  /* Override any massive font sizes */
+  * {
+    max-font-size: 10rem;
+  }
 }
